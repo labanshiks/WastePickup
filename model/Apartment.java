@@ -2,7 +2,6 @@ package model;
 
 public class Apartment {
 
-    // Attributes
     private int id;
     private String name;
     private String estate;
@@ -10,14 +9,26 @@ public class Apartment {
     private int numberOfUnits;
     private Caretaker caretaker;
 
-    // Constructors
-    public Apartment(int id, String name, String estate, String address, int numberOfUnits, Caretaker caretaker) {
+    // Original constructor - with Caretaker object
+    public Apartment(int id, String name, String estate,
+            String address, int numberOfUnits, Caretaker caretaker) {
         this.id = id;
         this.name = name;
         this.estate = estate;
         this.address = address;
         this.numberOfUnits = numberOfUnits;
         this.caretaker = caretaker;
+    }
+
+    // Simplified constructor - without Caretaker object
+    public Apartment(int id, String name, String estate,
+            String address, int numberOfUnits) {
+        this.id = id;
+        this.name = name;
+        this.estate = estate;
+        this.address = address;
+        this.numberOfUnits = numberOfUnits;
+        this.caretaker = null;
     }
 
     // Getters
@@ -69,5 +80,4 @@ public class Apartment {
     public void setCaretaker(Caretaker caretaker) {
         this.caretaker = caretaker;
     }
-
 }

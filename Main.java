@@ -1,43 +1,40 @@
-import model.*;
+import dao.ScheduleDAO;
+import dao.VehicleDAO;
+import model.Schedule;
+import model.Vehicle;
+import util.DBConnection;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+        public static void main(String[] args) {
 
-        // Create a Caretaker
-        Caretaker caretaker = new Caretaker(1, "john_doe", "pass123", "0712345678");
+                ScheduleDAO scheduleDAO = new ScheduleDAO();
+                VehicleDAO vehicleDAO = new VehicleDAO();
 
-        // Create an Apartment and assign the Caretaker
-        Apartment apartment = new Apartment(1, "Greenpark Apartments",
-                "Kilimani", "Ngong Road", 24, caretaker);
+                // Test create
+                System.out.println("=== CREATE SCHEDULE ===");
+                Vehicle vehicle = vehicleDAO.findById(1);
+                Schedule newSchedule = new Schedule(
+                                0,
+                                LocalDate.of(2025, 4, 1),
+                                "8AM - 10AM",
+                                "Kilimani Morning Route",
+                                vehicle);
+                boolean created = scheduleDAO.create(newSchedule);
+                System.out.println("Schedule created: " + created);
 
-        // Create a Vehicle
-        Vehicle vehicle = new Vehicle(1, "KCA 123A", 500.0);
+                // Test findAll
+                System.out.println("\n=== ALL SCHEDULES ===");
+                List<Schedule> schedules = scheduleDAO.findAll();
+                for (Schedule s : schedules) {
+                        System.out.println(
+                                        "ID: " + s.getId() +
+                                                        " | Route: " + s.getRouteName() +
+                                                        " | Date: " + s.getPickupDate() +
+                                                        " | Status: " + s.getStatus());
+                }
 
-        // Create a PickupRequest
-        PickupRequest request = new PickupRequest(1, apartment,
-                WasteCategory.PLASTIC, 50.0,
-                LocalDate.now(),
-                LocalDate.now().plusDays(3));
-
-        // Create a Schedule and add the request
-        Schedule schedule = new Schedule(1, LocalDate.now(),
-                "8AM - 10AM", "Kilimani Morning Route", vehicle);
-        schedule.addRequest(request);
-
-        // Print everything out
-        System.out.println("=== WASTE PICKUP SYSTEM TEST ===");
-        System.out.println("Caretaker: " + caretaker.getUsername());
-        System.out.println("Apartment: " + apartment.getName());
-        System.out.println("Location: " + apartment.getEstate());
-        System.out.println("Vehicle: " + vehicle.getPlate());
-        System.out.println("Vehicle Status: " + vehicle.getVehicleStatus());
-        System.out.println("Request Category: " + request.getCategory());
-        System.out.println("Request Status: " + request.getStatus());
-        System.out.println("Schedule Route: " + schedule.getRouteName());
-        System.out.println("Total Weight: " + schedule.getTotalWeight() + "kg");
-        System.out.println("Vehicle Capacity: " + vehicle.getCapacityKg() + "kg");
-        System.out.println("Can add more requests: " +
-                (schedule.getTotalWeight() < vehicle.getCapacityKg()));
-    }
+                DBConnection.closeConnection();
+        }
 }
