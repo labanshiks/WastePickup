@@ -7,6 +7,7 @@ public class Apartment {
     private String estate;
     private String address;
     private int numberOfUnits;
+    private int caretakerId;
     private Caretaker caretaker;
 
     // Original constructor - with Caretaker object
@@ -29,6 +30,7 @@ public class Apartment {
         this.address = address;
         this.numberOfUnits = numberOfUnits;
         this.caretaker = null;
+        this.caretakerId = 0;
     }
 
     // Getters
@@ -56,6 +58,10 @@ public class Apartment {
         return caretaker;
     }
 
+    public int getCaretakerId() {
+        return caretakerId;
+    }
+
     // Setters
     public void setId(int id) {
         this.id = id;
@@ -79,5 +85,9 @@ public class Apartment {
 
     public void setCaretaker(Caretaker caretaker) {
         this.caretaker = caretaker;
+    }
+
+    public void setCaretakerId(int caretakerId) {
+        this.caretakerId = caretakerId;
     }
 }

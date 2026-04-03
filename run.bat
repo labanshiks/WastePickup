@@ -1,0 +1,6 @@
+@echo off
+echo Compiling...
+javac --module-path "C:\javafx-sdk-21\javafx-sdk-21.0.10\lib" --add-modules javafx.controls,javafx.fxml -cp ".;lib/mysql-connector-j-9.6.0.jar" Main.java model/*.java dao/*.java util/*.java ui/controllers/*.java
+
+echo Running...
+java --module-path "C:\javafx-sdk-21\javafx-sdk-21.0.10\lib" --add-modules javafx.controls,javafx.fxml -cp ".;lib/mysql-connector-j-9.6.0.jar" Main

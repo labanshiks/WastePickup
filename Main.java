@@ -1,40 +1,24 @@
-import dao.ScheduleDAO;
-import dao.VehicleDAO;
-import model.Schedule;
-import model.Vehicle;
-import util.DBConnection;
-import java.time.LocalDate;
-import java.util.List;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class Main {
+public class Main extends Application {
+
+        @Override
+        public void start(Stage stage) throws Exception {
+                // Load login screen
+                FXMLLoader loader = new FXMLLoader(
+                                getClass().getResource("/ui/views/login.fxml"));
+                Scene scene = new Scene(loader.load(), 500, 450);
+
+                stage.setTitle("Smart Waste Pickup System");
+                stage.setScene(scene);
+                stage.setResizable(false);
+                stage.show();
+        }
+
         public static void main(String[] args) {
-
-                ScheduleDAO scheduleDAO = new ScheduleDAO();
-                VehicleDAO vehicleDAO = new VehicleDAO();
-
-                // Test create
-                System.out.println("=== CREATE SCHEDULE ===");
-                Vehicle vehicle = vehicleDAO.findById(1);
-                Schedule newSchedule = new Schedule(
-                                0,
-                                LocalDate.of(2025, 4, 1),
-                                "8AM - 10AM",
-                                "Kilimani Morning Route",
-                                vehicle);
-                boolean created = scheduleDAO.create(newSchedule);
-                System.out.println("Schedule created: " + created);
-
-                // Test findAll
-                System.out.println("\n=== ALL SCHEDULES ===");
-                List<Schedule> schedules = scheduleDAO.findAll();
-                for (Schedule s : schedules) {
-                        System.out.println(
-                                        "ID: " + s.getId() +
-                                                        " | Route: " + s.getRouteName() +
-                                                        " | Date: " + s.getPickupDate() +
-                                                        " | Status: " + s.getStatus());
-                }
-
-                DBConnection.closeConnection();
+                launch(args);
         }
 }

@@ -71,6 +71,26 @@ public class UserDAO implements DaoInterface<User> {
         return users;
     }
 
+    // Find user by username - used for login
+    public User findByUsername(String username) {
+        String sql = "SELECT * FROM users WHERE username = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new User(
+                        rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("role"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error finding user: " + e.getMessage());
+        }
+        return null;
+    }
+
     @Override
     public boolean update(User user) {
         String sql = "UPDATE users SET username = ?, " +

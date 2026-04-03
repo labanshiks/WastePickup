@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ui.controllers.LoginController"
+      alignment="CENTER"
+      spacing="15"
+      style="-fx-background-color: #f0f0f0;">
+
+    <padding>
+        <Insets top="50" right="50" bottom="50" left="50"/>
+    </padding>
+
+    <!-- Title -->
+    <Label text="Smart Waste Pickup System"
+           style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <Label text="Please login to continue"
+           style="-fx-font-size: 12px; -fx-text-fill: #666666;"/>
+
+    <!-- Username -->
+    <VBox spacing="5">
+        <Label text="Username"/>
+        <TextField fx:id="usernameField"
+                   promptText="Enter username"
+                   prefWidth="300"/>
+    </VBox>
+
+    <!-- Password -->
+    <VBox spacing="5">
+        <Label text="Password"/>
+        <PasswordField fx:id="passwordField"
+                       promptText="Enter password"
+                       prefWidth="300"/>
+    </VBox>
+
+    <!-- Error message -->
+    <Label fx:id="errorLabel"
+           style="-fx-text-fill: red;"
+           text=""/>
+
+    <!-- Login Button -->
+    <Button fx:id="loginButton"
+            text="Login"
+            prefWidth="300"
+            onAction="#handleLogin"
+            style="-fx-background-color: #4CAF50;
+                   -fx-text-fill: white;
+                   -fx-font-size: 14px;
+                   -fx-padding: 10px;"/>
+
+</VBox>

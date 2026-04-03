@@ -1,7 +1,6 @@
 package dao;
 
 import model.Apartment;
-import model.Caretaker;
 import util.DBConnection;
 import java.sql.*;
 import java.util.ArrayList;
@@ -49,6 +48,7 @@ public class ApartmentDAO implements DaoInterface<Apartment> {
                         rs.getString("estate"),
                         rs.getString("address"),
                         rs.getInt("number_of_units"));
+                apartment.setCaretakerId(rs.getInt("caretaker_user_id"));
                 // Store caretaker_user_id for later lookup
                 int caretakerId = rs.getInt("caretaker_user_id");
                 System.out.println("Caretaker ID: " + caretakerId);
@@ -74,6 +74,7 @@ public class ApartmentDAO implements DaoInterface<Apartment> {
                         rs.getString("estate"),
                         rs.getString("address"),
                         rs.getInt("number_of_units"));
+                apartment.setCaretakerId(rs.getInt("caretaker_user_id"));
                 apartments.add(apartment);
             }
         } catch (SQLException e) {
