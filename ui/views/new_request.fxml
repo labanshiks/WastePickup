@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ui.controllers.NewRequestController"
+      spacing="20"
+      style="-fx-background-color: #f0f0f0; -fx-padding: 30px;">
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="15">
+        <Button text="← Back"
+                onAction="#handleBack"
+                style="-fx-background-color: transparent;
+                       -fx-text-fill: #4CAF50;
+                       -fx-font-weight: bold;"/>
+        <Label text="New Pickup Request"
+               style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    </HBox>
+
+    <!-- Form Card -->
+    <VBox style="-fx-background-color: white; -fx-padding: 25px;"
+          spacing="15">
+
+        <!-- Apartment Info -->
+        <VBox spacing="5">
+            <Label text="Apartment"
+                   style="-fx-font-weight: bold;"/>
+            <Label fx:id="apartmentLabel"
+                   text="Loading..."
+                   style="-fx-text-fill: #666666;"/>
+        </VBox>
+
+        <Separator/>
+
+        <!-- Waste Category -->
+        <VBox spacing="5">
+            <Label text="Waste Category *"
+                   style="-fx-font-weight: bold;"/>
+            <ComboBox fx:id="categoryCombo"
+                      prefWidth="400"
+                      promptText="Select waste category"/>
+        </VBox>
+
+        <!-- Estimated Weight -->
+        <VBox spacing="5">
+            <Label text="Estimated Weight (kg) *"
+                   style="-fx-font-weight: bold;"/>
+            <TextField fx:id="weightField"
+                       prefWidth="400"
+                       promptText="Enter estimated weight in kg"/>
+        </VBox>
+
+        <!-- Preferred From Date -->
+        <VBox spacing="5">
+            <Label text="Preferred Pickup From *"
+                   style="-fx-font-weight: bold;"/>
+            <DatePicker fx:id="fromDatePicker"
+                        prefWidth="400"/>
+        </VBox>
+
+        <!-- Preferred To Date -->
+        <VBox spacing="5">
+            <Label text="Preferred Pickup To *"
+                   style="-fx-font-weight: bold;"/>
+            <DatePicker fx:id="toDatePicker"
+                        prefWidth="400"/>
+        </VBox>
+
+        <!-- Error Label -->
+        <Label fx:id="errorLabel"
+               style="-fx-text-fill: red;"
+               text=""/>
+
+        <!-- Submit Button -->
+        <Button text="Submit Request"
+                prefWidth="400"
+                onAction="#handleSubmit"
+                style="-fx-background-color: #4CAF50;
+                       -fx-text-fill: white;
+                       -fx-font-size: 14px;
+                       -fx-padding: 10px;"/>
+
+    </VBox>
+</VBox>

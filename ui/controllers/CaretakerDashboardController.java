@@ -123,7 +123,18 @@ public class CaretakerDashboardController {
 
     @FXML
     public void showNewRequest() {
-        System.out.println("New Request - coming soon!");
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/ui/views/new_request.fxml"));
+            Scene scene = new Scene(loader.load(), 600, 600);
+            NewRequestController controller = loader.getController();
+            controller.setData(currentUser, caretakerApartment);
+            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
+            stage.setScene(scene);
+        } catch (Exception e) {
+            System.out.println("Error opening request form: " + e.getMessage());
+        }
     }
 
     @FXML
