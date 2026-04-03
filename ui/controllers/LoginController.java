@@ -66,9 +66,12 @@ public class LoginController {
                     getClass().getResource(fxmlFile));
             Scene scene = new Scene(loader.load(), 900, 600);
 
-            // Pass user to dashboard controller
+            // Pass user to correct dashboard controller
             if (role.equals("Caretaker")) {
                 CaretakerDashboardController controller = loader.getController();
+                controller.setUser(user);
+            } else if (role.equals("Admin")) {
+                AdminDashboardController controller = loader.getController();
                 controller.setUser(user);
             }
 

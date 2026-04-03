@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ui.controllers.AdminDashboardController"
+      spacing="0"
+      style="-fx-background-color: #f0f0f0;">
+
+    <!-- Top Navigation Bar -->
+    <HBox style="-fx-background-color: #2196F3; -fx-padding: 15px;"
+          alignment="CENTER_LEFT" spacing="20">
+        <Label text="Smart Waste Pickup System - Admin"
+               style="-fx-text-fill: white;
+                      -fx-font-size: 16px;
+                      -fx-font-weight: bold;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label fx:id="welcomeLabel"
+               style="-fx-text-fill: white; -fx-font-size: 13px;"/>
+        <Button text="Logout"
+                onAction="#handleLogout"
+                style="-fx-background-color: white;
+                       -fx-text-fill: #2196F3;
+                       -fx-font-weight: bold;"/>
+    </HBox>
+
+    <!-- Dashboard Content -->
+    <HBox spacing="20" style="-fx-padding: 20px;" VBox.vgrow="ALWAYS">
+
+        <!-- Left Sidebar -->
+        <VBox spacing="10" style="-fx-background-color: white;
+                                   -fx-padding: 15px;
+                                   -fx-pref-width: 200px;">
+            <Label text="MENU"
+                   style="-fx-font-weight: bold;
+                          -fx-text-fill: #666666;"/>
+            <Separator/>
+            <Button text="Pending Requests"
+                    prefWidth="170"
+                    onAction="#showPendingRequests"
+                    style="-fx-background-color: transparent;
+                           -fx-text-fill: #333333;
+                           -fx-alignment: CENTER_LEFT;"/>
+            <Button text="Schedule Pickup"
+                    prefWidth="170"
+                    onAction="#showSchedule"
+                    style="-fx-background-color: transparent;
+                           -fx-text-fill: #333333;
+                           -fx-alignment: CENTER_LEFT;"/>
+            <Button text="Manage Vehicles"
+                    prefWidth="170"
+                    onAction="#showVehicles"
+                    style="-fx-background-color: transparent;
+                           -fx-text-fill: #333333;
+                           -fx-alignment: CENTER_LEFT;"/>
+        </VBox>
+
+        <!-- Main Content Area -->
+        <VBox spacing="15" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
+
+            <!-- Summary Cards -->
+            <HBox spacing="15">
+
+                <!-- Pending Card -->
+                <VBox style="-fx-background-color: white;
+                              -fx-padding: 20px;
+                              -fx-pref-width: 180px;">
+                    <Label text="Pending Requests"
+                           style="-fx-text-fill: #666666;"/>
+                    <Label fx:id="pendingCount"
+                           text="0"
+                           style="-fx-font-size: 32px;
+                                  -fx-font-weight: bold;
+                                  -fx-text-fill: #FF9800;"/>
+                </VBox>
+
+                <!-- Scheduled Card -->
+                <VBox style="-fx-background-color: white;
+                              -fx-padding: 20px;
+                              -fx-pref-width: 180px;">
+                    <Label text="Scheduled"
+                           style="-fx-text-fill: #666666;"/>
+                    <Label fx:id="scheduledCount"
+                           text="0"
+                           style="-fx-font-size: 32px;
+                                  -fx-font-weight: bold;
+                                  -fx-text-fill: #2196F3;"/>
+                </VBox>
+
+                <!-- Vehicles Card -->
+                <VBox style="-fx-background-color: white;
+                              -fx-padding: 20px;
+                              -fx-pref-width: 180px;">
+                    <Label text="Available Vehicles"
+                           style="-fx-text-fill: #666666;"/>
+                    <Label fx:id="vehiclesCount"
+                           text="0"
+                           style="-fx-font-size: 32px;
+                                  -fx-font-weight: bold;
+                                  -fx-text-fill: #4CAF50;"/>
+                </VBox>
+
+            </HBox>
+
+            <!-- Pending Requests Table -->
+            <VBox style="-fx-background-color: white;
+                          -fx-padding: 15px;"
+                  VBox.vgrow="ALWAYS">
+                <Label text="Pending Requests"
+                       style="-fx-font-weight: bold;
+                              -fx-font-size: 14px;
+                              -fx-padding: 0 0 10 0;"/>
+                <TableView fx:id="requestsTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="idColumn"
+                                     text="ID" prefWidth="50"/>
+                        <TableColumn fx:id="apartmentColumn"
+                                     text="Apartment" prefWidth="150"/>
+                        <TableColumn fx:id="categoryColumn"
+                                     text="Category" prefWidth="100"/>
+                        <TableColumn fx:id="weightColumn"
+                                     text="Weight (kg)" prefWidth="100"/>
+                        <TableColumn fx:id="fromColumn"
+                                     text="From" prefWidth="100"/>
+                        <TableColumn fx:id="toColumn"
+                                     text="To" prefWidth="100"/>
+                        <TableColumn fx:id="statusColumn"
+                                     text="Status" prefWidth="100"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+        </VBox>
+    </HBox>
+</VBox>
