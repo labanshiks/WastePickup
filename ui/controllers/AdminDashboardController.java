@@ -147,14 +147,12 @@ public class AdminDashboardController {
             Stage stage = (Stage) welcomeLabel.getScene().getWindow();
             stage.setScene(scene);
         } catch (Exception e) {
-            System.out.println("Error opening schedule: "
-                    + e.getMessage());
         }
     }
 
     @FXML
     public void showVehicles() {
-        System.out.println("Vehicles - coming soon!");
+
     }
 
     @FXML
@@ -166,7 +164,6 @@ public class AdminDashboardController {
             Stage stage = (Stage) welcomeLabel.getScene().getWindow();
             stage.setScene(scene);
         } catch (Exception e) {
-            System.out.println("Error logging out: " + e.getMessage());
         }
     }
 
@@ -183,8 +180,6 @@ public class AdminDashboardController {
                     .getScene().getWindow();
             stage.setScene(scene);
         } catch (Exception e) {
-            System.out.println("Error opening schedules: "
-                    + e.getMessage());
         }
     }
 
@@ -201,8 +196,6 @@ public class AdminDashboardController {
                     .getScene().getWindow();
             stage.setScene(scene);
         } catch (Exception e) {
-            System.out.println("Error opening reports: "
-                    + e.getMessage());
         }
     }
 }

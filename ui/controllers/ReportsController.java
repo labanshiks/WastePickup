@@ -129,7 +129,6 @@ public class ReportsController {
                 });
             }
         } catch (SQLException e) {
-            System.out.println("Report error: " + e.getMessage());
         }
         return data;
     }
@@ -194,8 +193,6 @@ public class ReportsController {
                     .getScene().getWindow();
             stage.setScene(scene);
         } catch (Exception e) {
-            System.out.println("Error going back: "
-                    + e.getMessage());
         }
     }
 

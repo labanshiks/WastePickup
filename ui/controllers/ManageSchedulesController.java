@@ -196,8 +196,6 @@ public class ManageSchedulesController {
                     .getScene().getWindow();
             stage.setScene(scene);
         } catch (Exception e) {
-            System.out.println("Error going back: "
-                    + e.getMessage());
         }
     }
 }

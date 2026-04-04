@@ -44,10 +44,7 @@ public class LoginController {
         }
 
         // Check credentials
-        System.out.println("Searching for username: " + username);
         User user = userDAO.findByUsername(username);
-        System.out.println("User found: " +
-                (user != null ? user.getUsername() : "null"));
 
         if (user == null) {
             errorLabel.setText(

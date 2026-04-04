@@ -124,10 +124,7 @@ public class CaretakerDashboardController {
     @FXML
     public void showApartment() {
         if (caretakerApartment != null) {
-            System.out.println("Apartment: " +
-                    caretakerApartment.getName());
         } else {
-            System.out.println("No apartment assigned!");
         }
     }
 
@@ -144,8 +141,6 @@ public class CaretakerDashboardController {
                     .getScene().getWindow();
             stage.setScene(scene);
         } catch (Exception e) {
-            System.out.println("Error opening request form: "
-                    + e.getMessage());
         }
     }
 
@@ -212,8 +207,6 @@ public class CaretakerDashboardController {
                     .getScene().getWindow();
             stage.setScene(scene);
         } catch (Exception e) {
-            System.out.println("Error logging out: "
-                    + e.getMessage());
         }
     }
 }
