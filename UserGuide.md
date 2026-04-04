@@ -27,13 +27,126 @@ admins to schedule and track pickups.
 
 ### Installation
 
-1. Clone the repository from GitHub
-2. Set up MySQL database:
+#### For the Project Owner
+
+1. Ensure MySQL is running
+2. Update database credentials in `util/DBConnection.java`
+3. Run the application using `run.bat`
+
+#### For Collaborators (Cloning the Repository)
+
+1. Clone the repository: git clone https://github.com/labanshiks/WastePickup.git
+2. Download JavaFX SDK 21 from gluonhq.com/products/javafx
+   - Version: 21.0.10
+   - OS: Windows
+   - Type: SDK
+3. Extract JavaFX to `C:\javafx-sdk-21`
+4. Update the JavaFX path in `.vscode/settings.json`
+   to match your installation path
+5. Download MySQL JDBC Driver from
+   dev.mysql.com/downloads/connector/j/
+   - Place the `.jar` file in the `lib/` folder
+6. Set up MySQL database:
    - Open MySQL terminal
    - Run: `CREATE DATABASE wastepickup;`
-   - Import the database schema
-3. Update database credentials in `util/DBConnection.java`
-4. Run the application using `run.bat`
+   - Create all tables using the schema below
+7. Update database credentials in `util/DBConnection.java`:
+
+```java
+   private static final String URL =
+       "jdbc:mysql://localhost:3306/wastepickup";
+   private static final String USERNAME = "root";
+   private static final String PASSWORD = "<your_root_password>";
+```
+
+8. Run the application using `run.bat`
+
+#### Database Schema
+
+Run these SQL commands in order after creating the database:
+
+```sql
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('CARETAKER', 'ADMIN') NOT NULL
+);
+
+CREATE TABLE caretakers (
+    user_id INT PRIMARY KEY,
+    phone VARCHAR(15) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+    ON DELETE CASCADE
+);
+
+CREATE TABLE admins (
+    user_id INT PRIMARY KEY,
+    department VARCHAR(100) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+    ON DELETE CASCADE
+);
+
+CREATE TABLE apartments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    estate VARCHAR(100) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    number_of_units INT NOT NULL,
+    caretaker_user_id INT,
+    FOREIGN KEY (caretaker_user_id)
+    REFERENCES caretakers(user_id)
+    ON DELETE SET NULL
+);
+
+CREATE TABLE vehicles (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    plate VARCHAR(20) NOT NULL UNIQUE,
+    capacity_kg DOUBLE NOT NULL,
+    status ENUM('AVAILABLE','ON_ROUTE','MAINTENANCE')
+    DEFAULT 'AVAILABLE'
+);
+
+CREATE TABLE pickup_requests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    apartment_id INT NOT NULL,
+    category ENUM('PLASTIC','ORGANIC','GLASS',
+                  'PAPER','METAL','E_WASTE','HAZARDOUS')
+                  NOT NULL,
+    estimated_weight_kg DOUBLE NOT NULL,
+    preferred_from DATE NOT NULL,
+    preferred_to DATE NOT NULL,
+    status ENUM('PENDING','APPROVED','SCHEDULED',
+                'COMPLETED','MISSED','CANCELLED')
+                DEFAULT 'PENDING',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (apartment_id) REFERENCES apartments(id)
+    ON DELETE CASCADE
+);
+
+CREATE TABLE schedules (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    pickup_date DATE NOT NULL,
+    time_slot VARCHAR(50) NOT NULL,
+    route_name VARCHAR(100) NOT NULL,
+    vehicle_id INT NOT NULL,
+    status ENUM('PENDING','ONGOING',
+                'COMPLETED','CANCELLED')
+                DEFAULT 'PENDING',
+    FOREIGN KEY (vehicle_id) REFERENCES vehicles(id)
+    ON DELETE CASCADE
+);
+
+CREATE TABLE schedule_requests (
+    schedule_id INT NOT NULL,
+    request_id INT NOT NULL,
+    PRIMARY KEY (schedule_id, request_id),
+    FOREIGN KEY (schedule_id) REFERENCES schedules(id)
+    ON DELETE CASCADE,
+    FOREIGN KEY (request_id)
+    REFERENCES pickup_requests(id)
+    ON DELETE CASCADE
+);
 
 ### Default Login Credentials
 
@@ -195,3 +308,4 @@ _Developed by: Brian Laban Shikuku and Janet Ndanu_
 _Institution: Strathmore University_
 _Course: Object Oriented Programming_
 _Year: 2026_
+```

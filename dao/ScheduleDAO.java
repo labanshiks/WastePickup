@@ -4,7 +4,6 @@ import model.Schedule;
 import model.ScheduleStatus;
 import model.Vehicle;
 import model.PickupRequest;
-import dao.VehicleDAO;
 import util.DBConnection;
 import java.sql.*;
 import java.util.ArrayList;

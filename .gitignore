@@ -1,4 +1,3 @@
-*.class 
-model/*.class 
-.vscode/ 
-"lib/" 
+*.class
+model/*.class
+report.csv

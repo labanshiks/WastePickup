@@ -8,7 +8,6 @@ import util.DBConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ArrayList;
 
 public class PickupRequestDAO implements DaoInterface<PickupRequest> {
 
