@@ -27,26 +27,37 @@ public class LoginController {
         String username = usernameField.getText().trim();
         String password = passwordField.getText().trim();
 
-        if (username.isEmpty() || password.isEmpty()) {
-            errorLabel.setText("Please enter username and password!");
+        if (username.isEmpty() && password.isEmpty()) {
+            errorLabel.setText(
+                    "Please enter your username and password!");
             return;
         }
 
-        // Debug line - check what's being searched
+        if (username.isEmpty()) {
+            errorLabel.setText("Please enter your username!");
+            return;
+        }
+
+        if (password.isEmpty()) {
+            errorLabel.setText("Please enter your password!");
+            return;
+        }
+
+        // Check credentials
         System.out.println("Searching for username: " + username);
-
         User user = userDAO.findByUsername(username);
-
-        // Debug line - check what was returned
-        System.out.println("User found: " + (user != null ? user.getUsername() : "null"));
+        System.out.println("User found: " +
+                (user != null ? user.getUsername() : "null"));
 
         if (user == null) {
-            errorLabel.setText("User not found!");
+            errorLabel.setText(
+                    "Username not found. Please check and try again!");
             return;
         }
 
         if (!user.getPassword().equals(password)) {
-            errorLabel.setText("Incorrect password!");
+            errorLabel.setText(
+                    "Incorrect password. Please try again!");
             return;
         }
 

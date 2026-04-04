@@ -52,55 +52,96 @@ public class NewRequestController {
 
     @FXML
     public void handleSubmit() {
-        // Validate inputs
+        if (currentApartment == null) {
+            errorLabel.setText(
+                    "No apartment assigned to your account. " +
+                            "Contact admin!");
+            return;
+        }
+
         if (categoryCombo.getValue() == null) {
-            errorLabel.setText("Please select a waste category!");
+            errorLabel.setText(
+                    "Please select a waste category " +
+                            "before submitting!");
             return;
         }
 
         if (weightField.getText().isEmpty()) {
-            errorLabel.setText("Please enter estimated weight!");
+            errorLabel.setText(
+                    "Please enter the estimated weight in kg!");
             return;
         }
 
         if (fromDatePicker.getValue() == null) {
-            errorLabel.setText("Please select a from date!");
+            errorLabel.setText(
+                    "Please select your preferred pickup start date!");
             return;
         }
 
         if (toDatePicker.getValue() == null) {
-            errorLabel.setText("Please select a to date!");
+            errorLabel.setText(
+                    "Please select your preferred pickup end date!");
             return;
         }
 
-        // Validate weight is a number
         double weight;
         try {
-            weight = Double.parseDouble(weightField.getText().trim());
+            weight = Double.parseDouble(
+                    weightField.getText().trim());
             if (weight <= 0) {
-                errorLabel.setText("Weight must be greater than 0!");
+                errorLabel.setText(
+                        "Weight must be greater than 0 kg!");
+                return;
+            }
+            if (weight > 1000) {
+                errorLabel.setText(
+                        "Weight seems too high. " +
+                                "Maximum allowed is 1000 kg!");
                 return;
             }
         } catch (NumberFormatException e) {
-            errorLabel.setText("Please enter a valid weight number!");
+            errorLabel.setText(
+                    "Invalid weight! Please enter a " +
+                            "valid number e.g 50 or 50.5");
             return;
         }
 
-        // Validate date range
         LocalDate fromDate = fromDatePicker.getValue();
         LocalDate toDate = toDatePicker.getValue();
 
-        if (toDate.isBefore(fromDate)) {
-            errorLabel.setText("To date cannot be before From date!");
-            return;
-        }
-
         if (fromDate.isBefore(LocalDate.now())) {
-            errorLabel.setText("From date cannot be in the past!");
+            errorLabel.setText(
+                    "Pickup start date cannot be in the past!");
             return;
         }
 
-        // Create the request object
+        if (toDate.isBefore(fromDate)) {
+            errorLabel.setText(
+                    "End date cannot be before start date!");
+            return;
+        }
+
+        if (toDate.isAfter(fromDate.plusDays(7))) {
+            errorLabel.setText(
+                    "Pickup window cannot exceed 7 days!");
+            return;
+        }
+
+        // Check for duplicate
+        boolean duplicate = requestDAO.duplicateExists(
+                currentApartment.getId(),
+                categoryCombo.getValue().name());
+
+        if (duplicate) {
+            errorLabel.setText(
+                    "A PENDING or SCHEDULED " +
+                            categoryCombo.getValue() +
+                            " request already exists " +
+                            "for your apartment!");
+            return;
+        }
+
+        // Create request
         PickupRequest request = new PickupRequest(
                 0,
                 currentApartment,
@@ -109,17 +150,21 @@ public class NewRequestController {
                 fromDate,
                 toDate);
 
-        // Save to database
         boolean success = requestDAO.create(request);
 
         if (success) {
-            // Show success and go back to dashboard
-            showAlert("Success",
-                    "Pickup request submitted successfully!",
+            showAlert("Request Submitted!",
+                    "Your " + categoryCombo.getValue() +
+                            " pickup request has been submitted " +
+                            "successfully!\n\n" +
+                            "Preferred dates: " + fromDate +
+                            " to " + toDate,
                     Alert.AlertType.INFORMATION);
             handleBack();
         } else {
-            errorLabel.setText("Failed to submit request. Try again!");
+            errorLabel.setText(
+                    "Failed to submit request. " +
+                            "Please try again or contact admin!");
         }
     }
 

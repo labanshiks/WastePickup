@@ -159,4 +159,24 @@ public class PickupRequestDAO implements DaoInterface<PickupRequest> {
             return false;
         }
     }
+
+    // Check if a duplicate request exists
+    public boolean duplicateExists(int apartmentId, String category) {
+        String sql = "SELECT COUNT(*) FROM pickup_requests " +
+                "WHERE apartment_id = ? AND category = ? " +
+                "AND status IN ('PENDING', 'SCHEDULED')";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, apartmentId);
+            stmt.setString(2, category);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error checking duplicate: "
+                    + e.getMessage());
+        }
+        return false;
+    }
 }

@@ -4,7 +4,6 @@ import dao.ApartmentDAO;
 import dao.PickupRequestDAO;
 import dao.ScheduleDAO;
 import dao.VehicleDAO;
-import model.VehicleStatus;
 import model.*;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -197,6 +196,13 @@ public class SchedulePickupController {
         // Validate inputs
         if (pickupDatePicker.getValue() == null) {
             errorLabel.setText("Please select a pickup date!");
+            return;
+        }
+
+        // Validate pickup date is not in the past
+        if (pickupDatePicker.getValue().isBefore(LocalDate.now())) {
+            errorLabel.setText(
+                    "Pickup date cannot be in the past!");
             return;
         }
 
