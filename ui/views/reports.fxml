@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ui.controllers.ReportsController"
+      spacing="20"
+      style="-fx-background-color: #f0f0f0; -fx-padding: 30px;">
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="15">
+        <Button text="← Back"
+                onAction="#handleBack"
+                style="-fx-background-color: transparent;
+                       -fx-text-fill: #2196F3;
+                       -fx-font-weight: bold;"/>
+        <Label text="Reports"
+               style="-fx-font-size: 18px; 
+                      -fx-font-weight: bold;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Export to CSV"
+                onAction="#handleExport"
+                style="-fx-background-color: #4CAF50;
+                       -fx-text-fill: white;
+                       -fx-font-weight: bold;
+                       -fx-padding: 8px 15px;"/>
+    </HBox>
+
+    <!-- Reports Grid -->
+    <HBox spacing="20" VBox.vgrow="ALWAYS">
+
+        <!-- Left Column -->
+        <VBox spacing="20" HBox.hgrow="ALWAYS">
+
+            <!-- Request Status Summary -->
+            <VBox style="-fx-background-color: white;
+                          -fx-padding: 15px;" spacing="10">
+                <Label text="Requests by Status"
+                       style="-fx-font-weight: bold;
+                              -fx-font-size: 14px;"/>
+                <Separator/>
+                <TableView fx:id="statusTable" 
+                           prefHeight="180">
+                    <columns>
+                        <TableColumn fx:id="statusNameColumn"
+                                     text="Status" 
+                                     prefWidth="150"/>
+                        <TableColumn fx:id="statusCountColumn"
+                                     text="Count" 
+                                     prefWidth="100"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- Requests by Category -->
+            <VBox style="-fx-background-color: white;
+                          -fx-padding: 15px;" 
+                  spacing="10" VBox.vgrow="ALWAYS">
+                <Label text="Requests by Category"
+                       style="-fx-font-weight: bold;
+                              -fx-font-size: 14px;"/>
+                <Separator/>
+                <TableView fx:id="categoryTable" 
+                           VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="categoryNameColumn"
+                                     text="Category" 
+                                     prefWidth="150"/>
+                        <TableColumn fx:id="categoryCountColumn"
+                                     text="Count" 
+                                     prefWidth="100"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+        </VBox>
+
+        <!-- Right Column -->
+        <VBox spacing="20" HBox.hgrow="ALWAYS">
+
+            <!-- Most Active Apartments -->
+            <VBox style="-fx-background-color: white;
+                          -fx-padding: 15px;" spacing="10">
+                <Label text="Most Active Apartments"
+                       style="-fx-font-weight: bold;
+                              -fx-font-size: 14px;"/>
+                <Separator/>
+                <TableView fx:id="apartmentsTable" 
+                           prefHeight="180">
+                    <columns>
+                        <TableColumn fx:id="apartmentNameColumn"
+                                     text="Apartment" 
+                                     prefWidth="180"/>
+                        <TableColumn fx:id="apartmentCountColumn"
+                                     text="Requests" 
+                                     prefWidth="80"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- Most Active Vehicles -->
+            <VBox style="-fx-background-color: white;
+                          -fx-padding: 15px;" 
+                  spacing="10" VBox.vgrow="ALWAYS">
+                <Label text="Most Active Vehicles"
+                       style="-fx-font-weight: bold;
+                              -fx-font-size: 14px;"/>
+                <Separator/>
+                <TableView fx:id="vehiclesTable" 
+                           VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="vehiclePlateColumn"
+                                     text="Vehicle" 
+                                     prefWidth="150"/>
+                        <TableColumn fx:id="vehicleCountColumn"
+                                     text="Schedules" 
+                                     prefWidth="80"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+        </VBox>
+    </HBox>
+</VBox>

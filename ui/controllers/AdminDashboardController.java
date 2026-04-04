@@ -187,4 +187,22 @@ public class AdminDashboardController {
                     + e.getMessage());
         }
     }
+
+    @FXML
+    public void showReports() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/ui/views/reports.fxml"));
+            Scene scene = new Scene(loader.load(), 900, 600);
+            ReportsController controller = loader.getController();
+            controller.setUser(currentUser);
+            Stage stage = (Stage) welcomeLabel
+                    .getScene().getWindow();
+            stage.setScene(scene);
+        } catch (Exception e) {
+            System.out.println("Error opening reports: "
+                    + e.getMessage());
+        }
+    }
 }

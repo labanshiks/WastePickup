@@ -60,7 +60,13 @@
                      onAction="#showManageSchedules"
                      style="-fx-background-color: transparent;
                             -fx-text-fill: #333333;
-                            -fx-alignment: CENTER_LEFT;"/>     
+                            -fx-alignment: CENTER_LEFT;"/>
+            <Button text="Reports"
+                     prefWidth="170"
+                     onAction="#showReports"
+                     style="-fx-background-color: transparent;
+                            -fx-text-fill: #333333;
+                            -fx-alignment: CENTER_LEFT;"/>   
         </VBox>
 
         <!-- Main Content Area -->

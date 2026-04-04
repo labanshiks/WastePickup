@@ -1,0 +1,25 @@
+=== REQUESTS BY STATUS ===,
+Status,Count
+COMPLETED,3
+PENDING,4
+,
+=== REQUESTS BY CATEGORY ===,
+Category,Count
+GLASS,2
+PLASTIC,1
+ORGANIC,1
+METAL,1
+PAPER,1
+E_WASTE,1
+,
+=== MOST ACTIVE APARTMENTS ===,
+Apartment,Total Requests
+Greenpark Apartments,3
+Sunset Court,1
+Blue Nile Flats,1
+Garden View,1
+Milimani Heights,1
+,
+=== MOST ACTIVE VEHICLES ===,
+Vehicle,Total Schedules
+KCA 123A,2
