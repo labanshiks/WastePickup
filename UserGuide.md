@@ -294,13 +294,13 @@ The dashboard shows:
 
 ## Troubleshooting
 
-| Problem                 | Solution                     |
-| ----------------------- | ---------------------------- |
-| Cannot login            | Check username and password  |
-| Database error          | Ensure MySQL is running      |
-| Application won't start | Check Java JDK version       |
-| Cannot submit request   | Check for duplicate requests |
-| No vehicles showing     | All vehicles may be ON_ROUTE |
+| Problem                  | Solution                     |
+| ------------------------ | ---------------------------- |
+| Cannot login             | Check username and password  |
+| Database error           | Ensure MySQL is running      |
+| Application not starting | Check Java JDK version       |
+| Cannot submit request    | Check for duplicate requests |
+| No vehicles showing      | All vehicles may be ON_ROUTE |
 
 ---
 

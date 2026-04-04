@@ -20,12 +20,19 @@ and track pickups.
 ## Project Structure
 
 WastePickup/
+
 ├── model/ → Java model classes
+
 ├── dao/ → Data access objects
+
 ├── ui/ → JavaFX screens
+
 │ ├── views/ → FXML layouts
+
 │ └── controllers/ → Screen controllers
+
 ├── util/ → Database connection
+
 └── lib/ → External libraries
 
 ## How to Run
