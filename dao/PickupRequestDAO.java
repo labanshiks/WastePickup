@@ -8,6 +8,7 @@ import util.DBConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 public class PickupRequestDAO implements DaoInterface<PickupRequest> {
 
@@ -60,6 +61,41 @@ public class PickupRequestDAO implements DaoInterface<PickupRequest> {
             System.out.println("Error finding request: " + e.getMessage());
         }
         return null;
+    }
+
+    // Find requests with schedule details for a caretaker
+    public List<String[]> findRequestsWithSchedule(int apartmentId) {
+        List<String[]> results = new ArrayList<>();
+        String sql = "SELECT r.id, r.category, r.estimated_weight_kg, " +
+                "r.preferred_from, r.preferred_to, r.status, " +
+                "s.pickup_date, s.time_slot, v.plate " +
+                "FROM pickup_requests r " +
+                "LEFT JOIN schedule_requests sr ON r.id = sr.request_id " +
+                "LEFT JOIN schedules s ON sr.schedule_id = s.id " +
+                "LEFT JOIN vehicles v ON s.vehicle_id = v.id " +
+                "WHERE r.apartment_id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, apartmentId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                results.add(new String[] {
+                        rs.getString("id"),
+                        rs.getString("category"),
+                        rs.getString("estimated_weight_kg"),
+                        rs.getString("preferred_from"),
+                        rs.getString("preferred_to"),
+                        rs.getString("status"),
+                        rs.getString("pickup_date") != null ? rs.getString("pickup_date") : "Not scheduled",
+                        rs.getString("time_slot") != null ? rs.getString("time_slot") : "--",
+                        rs.getString("plate") != null ? rs.getString("plate") : "--"
+                });
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching requests: "
+                    + e.getMessage());
+        }
+        return results;
     }
 
     @Override
