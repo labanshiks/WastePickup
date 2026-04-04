@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ui.controllers.ManageSchedulesController"
+      spacing="20"
+      style="-fx-background-color: #f0f0f0; -fx-padding: 30px;">
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="15">
+        <Button text="← Back"
+                onAction="#handleBack"
+                style="-fx-background-color: transparent;
+                       -fx-text-fill: #2196F3;
+                       -fx-font-weight: bold;"/>
+        <Label text="Manage Schedules"
+               style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    </HBox>
+
+    <!-- Schedules Table -->
+    <VBox style="-fx-background-color: white; -fx-padding: 20px;"
+          VBox.vgrow="ALWAYS">
+
+        <Label text="Active Schedules"
+               style="-fx-font-weight: bold; -fx-font-size: 14px;
+                      -fx-padding: 0 0 10 0;"/>
+
+        <TableView fx:id="schedulesTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="idColumn"
+                             text="ID" prefWidth="50"/>
+                <TableColumn fx:id="dateColumn"
+                             text="Pickup Date" prefWidth="120"/>
+                <TableColumn fx:id="timeSlotColumn"
+                             text="Time Slot" prefWidth="120"/>
+                <TableColumn fx:id="routeColumn"
+                             text="Route" prefWidth="180"/>
+                <TableColumn fx:id="vehicleColumn"
+                             text="Vehicle" prefWidth="120"/>
+                <TableColumn fx:id="requestsColumn"
+                             text="Requests" prefWidth="80"/>
+                <TableColumn fx:id="statusColumn"
+                             text="Status" prefWidth="100"/>
+            </columns>
+        </TableView>
+
+        <!-- Action Buttons -->
+        <HBox spacing="15" style="-fx-padding: 15 0 0 0;">
+            <Button text="✓ Mark Completed"
+                    onAction="#handleMarkCompleted"
+                    style="-fx-background-color: #4CAF50;
+                           -fx-text-fill: white;
+                           -fx-font-weight: bold;
+                           -fx-padding: 10px 20px;"/>
+            <Button text="✗ Mark Missed"
+                    onAction="#handleMarkMissed"
+                    style="-fx-background-color: #f44336;
+                           -fx-text-fill: white;
+                           -fx-font-weight: bold;
+                           -fx-padding: 10px 20px;"/>
+            <Label fx:id="messageLabel"
+                   style="-fx-text-fill: green;"/>
+        </HBox>
+    </VBox>
+</VBox>

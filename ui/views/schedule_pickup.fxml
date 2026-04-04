@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ui.controllers.SchedulePickupController"
+      spacing="20"
+      style="-fx-background-color: #f0f0f0; -fx-padding: 30px;">
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="15">
+        <Button text="← Back"
+                onAction="#handleBack"
+                style="-fx-background-color: transparent;
+                       -fx-text-fill: #2196F3;
+                       -fx-font-weight: bold;"/>
+        <Label text="Schedule Pickup"
+               style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    </HBox>
+
+    <HBox spacing="20" VBox.vgrow="ALWAYS">
+
+        <!-- Left - Schedule Form -->
+        <VBox spacing="15"
+              style="-fx-background-color: white; -fx-padding: 20px;"
+              prefWidth="350">
+
+            <Label text="Schedule Details"
+                   style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+            <Separator/>
+
+            <!-- Pickup Date -->
+            <VBox spacing="5">
+                <Label text="Pickup Date *"
+                       style="-fx-font-weight: bold;"/>
+                <DatePicker fx:id="pickupDatePicker" prefWidth="300"/>
+            </VBox>
+
+            <!-- Time Slot -->
+            <VBox spacing="5">
+                <Label text="Time Slot *"
+                       style="-fx-font-weight: bold;"/>
+                <ComboBox fx:id="timeSlotCombo"
+                          prefWidth="300"
+                          promptText="Select time slot"/>
+            </VBox>
+
+            <!-- Route Name -->
+            <VBox spacing="5">
+                <Label text="Route Name *"
+                       style="-fx-font-weight: bold;"/>
+                <TextField fx:id="routeNameField"
+                           prefWidth="300"
+                           promptText="e.g. Kilimani Morning Route"/>
+            </VBox>
+
+            <!-- Vehicle -->
+            <VBox spacing="5">
+                <Label text="Assign Vehicle *"
+                       style="-fx-font-weight: bold;"/>
+                <ComboBox fx:id="vehicleCombo"
+                          prefWidth="300"
+                          promptText="Select vehicle"/>
+            </VBox>
+
+            <!-- Capacity Info -->
+            <HBox spacing="10">
+                <Label text="Vehicle Capacity:"/>
+                <Label fx:id="capacityLabel"
+                       text="--"
+                       style="-fx-font-weight: bold;"/>
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Selected Weight:"/>
+                <Label fx:id="selectedWeightLabel"
+                       text="0.0 kg"
+                       style="-fx-font-weight: bold;"/>
+            </HBox>
+
+            <!-- Error Label -->
+            <Label fx:id="errorLabel"
+                   style="-fx-text-fill: red;"
+                   text=""/>
+
+            <!-- Submit Button -->
+            <Button text="Create Schedule"
+                    prefWidth="300"
+                    onAction="#handleCreateSchedule"
+                    style="-fx-background-color: #2196F3;
+                           -fx-text-fill: white;
+                           -fx-font-size: 14px;
+                           -fx-padding: 10px;"/>
+        </VBox>
+
+        <!-- Right - Pending Requests -->
+        <VBox spacing="10"
+              style="-fx-background-color: white; -fx-padding: 20px;"
+              VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
+
+            <Label text="Select Requests to Schedule"
+                   style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+            <Separator/>
+
+            <TableView fx:id="requestsTable" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="selectColumn"
+                                 text="Select" prefWidth="60"/>
+                    <TableColumn fx:id="idColumn"
+                                 text="ID" prefWidth="40"/>
+                    <TableColumn fx:id="apartmentColumn"
+                                 text="Apartment" prefWidth="150"/>
+                    <TableColumn fx:id="categoryColumn"
+                                 text="Category" prefWidth="100"/>
+                    <TableColumn fx:id="weightColumn"
+                                 text="Weight" prefWidth="80"/>
+                    <TableColumn fx:id="fromColumn"
+                                 text="From" prefWidth="100"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </HBox>
+</VBox>

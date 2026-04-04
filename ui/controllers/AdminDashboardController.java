@@ -17,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import java.util.List;
+import javafx.scene.control.*;
 
 public class AdminDashboardController {
 
@@ -136,7 +137,19 @@ public class AdminDashboardController {
 
     @FXML
     public void showSchedule() {
-        System.out.println("Schedule - coming soon!");
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/ui/views/schedule_pickup.fxml"));
+            Scene scene = new Scene(loader.load(), 1000, 600);
+            SchedulePickupController controller = loader.getController();
+            controller.setUser(currentUser);
+            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
+            stage.setScene(scene);
+        } catch (Exception e) {
+            System.out.println("Error opening schedule: "
+                    + e.getMessage());
+        }
     }
 
     @FXML
@@ -154,6 +167,24 @@ public class AdminDashboardController {
             stage.setScene(scene);
         } catch (Exception e) {
             System.out.println("Error logging out: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    public void showManageSchedules() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/ui/views/manage_schedules.fxml"));
+            Scene scene = new Scene(loader.load(), 900, 600);
+            ManageSchedulesController controller = loader.getController();
+            controller.setUser(currentUser);
+            Stage stage = (Stage) welcomeLabel
+                    .getScene().getWindow();
+            stage.setScene(scene);
+        } catch (Exception e) {
+            System.out.println("Error opening schedules: "
+                    + e.getMessage());
         }
     }
 }

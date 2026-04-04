@@ -55,6 +55,12 @@
                     style="-fx-background-color: transparent;
                            -fx-text-fill: #333333;
                            -fx-alignment: CENTER_LEFT;"/>
+            <Button text="Manage Schedules"
+                     prefWidth="170"
+                     onAction="#showManageSchedules"
+                     style="-fx-background-color: transparent;
+                            -fx-text-fill: #333333;
+                            -fx-alignment: CENTER_LEFT;"/>     
         </VBox>
 
         <!-- Main Content Area -->

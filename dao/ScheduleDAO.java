@@ -4,6 +4,7 @@ import model.Schedule;
 import model.ScheduleStatus;
 import model.Vehicle;
 import model.PickupRequest;
+import dao.VehicleDAO;
 import util.DBConnection;
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.List;
 public class ScheduleDAO implements DaoInterface<Schedule> {
 
     private Connection connection;
+    private VehicleDAO vehicleDAO = new VehicleDAO();
 
     public ScheduleDAO() {
         this.connection = DBConnection.getConnection();
@@ -66,8 +68,8 @@ public class ScheduleDAO implements DaoInterface<Schedule> {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                Vehicle vehicle = new Vehicle(
-                        rs.getInt("vehicle_id"), "", 0.0);
+                int vehicleId = rs.getInt("vehicle_id");
+                Vehicle vehicle = vehicleDAO.findById(vehicleId);
                 Schedule schedule = new Schedule(
                         rs.getInt("id"),
                         rs.getDate("pickup_date").toLocalDate(),
@@ -92,8 +94,8 @@ public class ScheduleDAO implements DaoInterface<Schedule> {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                Vehicle vehicle = new Vehicle(
-                        rs.getInt("vehicle_id"), "", 0.0);
+                int vehicleId = rs.getInt("vehicle_id");
+                Vehicle vehicle = vehicleDAO.findById(vehicleId);
                 Schedule schedule = new Schedule(
                         rs.getInt("id"),
                         rs.getDate("pickup_date").toLocalDate(),
